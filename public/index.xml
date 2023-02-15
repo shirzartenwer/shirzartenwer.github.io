@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Personal Blog</title>
+    <link>http://shirzartenwer.github.io/</link>
+    <description>Recent content on Personal Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 15 Feb 2023 13:15:03 +0100</lastBuildDate><atom:link href="http://shirzartenwer.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fist Post</title>
+      <link>http://shirzartenwer.github.io/posts/fist-post/</link>
+      <pubDate>Wed, 15 Feb 2023 13:15:03 +0100</pubDate>
+      
+      <guid>http://shirzartenwer.github.io/posts/fist-post/</guid>
+      <description>Trying to create my hugo webstie Not sure if this is the right way to do it: publishing directly from this repository. Is there a way to publish to another repository?</description>
+    </item>
+    
+  </channel>
+</rss>

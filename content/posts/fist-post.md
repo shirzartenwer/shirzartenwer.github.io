@@ -1,7 +1,7 @@
 ---
 title: "Fist Post"
 date: 2023-02-15T13:15:03+01:00
-draft: true
+draft: false
 ---
 
 # Trying to create my hugo webstie
