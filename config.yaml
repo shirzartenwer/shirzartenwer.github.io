@@ -1,0 +1,10 @@
+baseURL: 'http://example.org/'
+languageCode: en-us
+title: My New Hugo Site
+
+module:
+  imports:
+    - path: github.com/aormsby/hugo-shortcodes
+    - path: github.com/aormsby/hugo-custom-layouts
+    - path: github.com/aormsby/papermod-custom
+    - path: github.com/adityatelange/hugo-PaperMod
