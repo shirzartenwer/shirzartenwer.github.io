@@ -1,0 +1,13 @@
+# main:
+#   - name: Home
+#     url: bio/
+#     weight: 10
+#   - name: Blog
+#     url: blogs/
+#     weight: 20
+  # - name: Data Analytics Projects
+  #   url: '#projects'
+  #   weight: 30
+  # - name: Contact
+  #   url: '#contact'
+  #   weight: 60

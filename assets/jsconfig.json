@@ -1,0 +1,10 @@
+{
+ "compilerOptions": {
+  "baseUrl": ".",
+  "paths": {
+   "*": [
+    "../../../../../../var/folders/9r/3pjnjykx6mnck2f0mbbyjsxc0000gn/T/hugo_cache/modules/filecache/modules/pkg/mod/github.com/xianmin/hugo-theme-jane@v0.0.0-20230213123453-1a145d884a8d/assets/*"
+   ]
+  }
+ }
+}

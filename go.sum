@@ -1,8 +1,2 @@
 github.com/adityatelange/hugo-PaperMod v0.0.0-20230212065308-25e5b4d2982a h1:wpV+dZfkEZJTOSMqGpVMJ57Pnd2vjT+gqMud9BhZqB0=
 github.com/adityatelange/hugo-PaperMod v0.0.0-20230212065308-25e5b4d2982a/go.mod h1:HCHxNMKYdGafUYjVV3ICiAqznZK2yH0iI53jqcDFDdQ=
-github.com/aormsby/hugo-custom-layouts v0.0.0-20230127054811-6d6ebe0236bd h1:WXM7/nniMrIjSc3us7+mLnyJ5xBCfvRq6jKQbDhXEnI=
-github.com/aormsby/hugo-custom-layouts v0.0.0-20230127054811-6d6ebe0236bd/go.mod h1:jXC8XCG06LE2dgEI65aBF5x7w8VzrKzY/SvGe+wUFtw=
-github.com/aormsby/hugo-shortcodes v0.0.0-20230207083522-c3b8ced195fc h1:gjqn05iuPn+SYKwXU1j3MEcyLyI2oUKtNP51hyeVWag=
-github.com/aormsby/hugo-shortcodes v0.0.0-20230207083522-c3b8ced195fc/go.mod h1:765SKER6uT56vKKEghG4PJ5b0X5mzo0V/NbLw7+wQps=
-github.com/aormsby/papermod-custom v0.0.0-20210915023206-38c2eb365ebb h1:yo9a8urPXUFgmihdFvdfa3E0NIiHugr3o/e428T52Is=
-github.com/aormsby/papermod-custom v0.0.0-20210915023206-38c2eb365ebb/go.mod h1:W2IWmS5hQ7aCs9RgTHvTDRP1qt0J4zcsdmyfJx+D6H0=
