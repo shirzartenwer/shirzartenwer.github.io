@@ -4,7 +4,22 @@
     <title>Tags on Personal Blog</title>
     <link>http://shirzartenwer.github.io/tags/</link>
     <description>Recent content in Tags on Personal Blog</description>
+    <image>
+      <title>Personal Blog</title>
+      <url>http://shirzartenwer.github.io/Linkedin_profile_pic.jpg</url>
+      <link>http://shirzartenwer.github.io/Linkedin_profile_pic.jpg</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://shirzartenwer.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="http://shirzartenwer.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Third</title>
+      <link>http://shirzartenwer.github.io/tags/third/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      
+      <guid>http://shirzartenwer.github.io/tags/third/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

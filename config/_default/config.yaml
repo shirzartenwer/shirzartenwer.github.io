@@ -31,10 +31,11 @@ params:
   keywords: [Blog, Portfolio, PaperMod]
   author: Me
   # author: ["Me", "You"] # multiple authors
-  images: ["<link or path of image for opengraph, twitter-cards>"]
+  images: ["Linkedin_profile_pic.jpg"]
   DateFormat: "January 2, 2006"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
+
 
   ShowReadingTime: true
   ShowShareButtons: true
@@ -54,7 +55,7 @@ params:
 
   # home-info mode
   homeInfoParams:
-      Title: "Hi there wave"
+      Title: "Hi there  People"
       Content: >
             Welcome to demo of hugo's theme PaperMod.
             - **PaperMod** is a simple but fast and responsive theme with useful feature-set that enhances UX.
@@ -78,40 +79,43 @@ params:
     apple_touch_icon: "<link / abs url>"
     safari_pinned_tab: "<link / abs url>"
 
+  mainSections:
+    - blogs
+
   label:
-    text: "Asiye"
+    text: "Karabalgasun"
     icon: /apple-touch-icon.png
     iconHeight: 35
 
   # profile-mode
   profileMode:
-    enabled: true # needs to be explicitly set
-    title: ExampleSite
-    subtitle: "This is subtitle"
-    imageUrl: "<img location>"
+    enabled: false # needs to be explicitly set
+    title: Know Thyself
+    subtitle: "I am always on the journey of learning myself."
+    imageUrl: "Linkedin_profile_pic.jpg"
     imageWidth: 120
     imageHeight: 120
-    imageTitle: my image
+    # imageTitle: "ME"
     buttons:
-      - name: Posts
-        url: posts
-      - name: Tags
-        url: tags
+      - name: Bio
+        url: /bio/
+      - name: Blog
+        url: /blogs/
 
 
 
-  analytics:
-    google:
-      SiteVerificationTag: "XYZabc"
-    bing:
-      SiteVerificationTag: "XYZabc"
-    yandex:
-      SiteVerificationTag: "XYZabc"
+  # analytics:
+  #   google:
+  #     SiteVerificationTag: "XYZabc"
+  #   bing:
+  #     SiteVerificationTag: "XYZabc"
+  #   yandex:
+  #     SiteVerificationTag: "XYZabc"
 
-  cover:
-    hidden: true # hide everywhere but not in structured data
-    hiddenInList: true # hide on list pages and home
-    hiddenInSingle: true # hide on single page
+  # cover:
+  #   hidden: true # hide everywhere but not in structured data
+  #   hiddenInList: true # hide on list pages and home
+  #   hiddenInSingle: true # hide on single page
 
   editPost:
     URL: "https://github.com/<path_to_repo>/content"

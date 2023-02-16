@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: http://shirzartenwer.github.io/sitemap.xml

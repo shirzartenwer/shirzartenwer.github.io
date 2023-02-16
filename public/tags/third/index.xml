@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Third on Personal Blog</title>
+    <link>http://shirzartenwer.github.io/tags/third/</link>
+    <description>Recent content in Third on Personal Blog</description>
+    <image>
+      <title>Personal Blog</title>
+      <url>http://shirzartenwer.github.io/Linkedin_profile_pic.jpg</url>
+      <link>http://shirzartenwer.github.io/Linkedin_profile_pic.jpg</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="http://shirzartenwer.github.io/tags/third/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Man&#39;s search for meaning</title>
+      <link>http://shirzartenwer.github.io/blogs/third-post/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      
+      <guid>http://shirzartenwer.github.io/blogs/third-post/</guid>
+      <description>No matter what kind of life it is, it always have a purpose.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Bios on Personal Blog</title>
+    <link>http://shirzartenwer.github.io/bio/</link>
+    <description>Recent content in Bios on Personal Blog</description>
+    <image>
+      <title>Personal Blog</title>
+      <url>http://shirzartenwer.github.io/Linkedin_profile_pic.jpg</url>
+      <link>http://shirzartenwer.github.io/Linkedin_profile_pic.jpg</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 15 Feb 2023 13:15:03 +0100</lastBuildDate><atom:link href="http://shirzartenwer.github.io/bio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Biography</title>
+      <link>http://shirzartenwer.github.io/bio/biography/</link>
+      <pubDate>Wed, 15 Feb 2023 13:15:03 +0100</pubDate>
+      
+      <guid>http://shirzartenwer.github.io/bio/biography/</guid>
+      <description>Hey, this is Arslan or Alex or Nursat, depends on what time of a day you catch me :)</description>
+    </item>
+    
+  </channel>
+</rss>

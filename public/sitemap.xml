@@ -2,17 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://shirzartenwer.github.io/posts/fist-post/</loc>
+    <loc>http://shirzartenwer.github.io/bio/biography/</loc>
+    <lastmod>2023-02-15T13:15:03+01:00</lastmod>
+  </url><url>
+    <loc>http://shirzartenwer.github.io/bio/</loc>
+    <lastmod>2023-02-15T13:15:03+01:00</lastmod>
+  </url><url>
+    <loc>http://shirzartenwer.github.io/blogs/fist-post/</loc>
     <lastmod>2023-02-15T13:15:03+01:00</lastmod>
   </url><url>
     <loc>http://shirzartenwer.github.io/</loc>
     <lastmod>2023-02-15T13:15:03+01:00</lastmod>
   </url><url>
-    <loc>http://shirzartenwer.github.io/posts/</loc>
+    <loc>http://shirzartenwer.github.io/blogs/second-post/</loc>
     <lastmod>2023-02-15T13:15:03+01:00</lastmod>
   </url><url>
-    <loc>http://shirzartenwer.github.io/categories/</loc>
+    <loc>http://shirzartenwer.github.io/blogs/</loc>
+    <lastmod>2023-02-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://shirzartenwer.github.io/blogs/third-post/</loc>
+    <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
     <loc>http://shirzartenwer.github.io/tags/</loc>
+    <lastmod>2020-09-15T11:30:03+00:00</lastmod>
+  </url><url>
+    <loc>http://shirzartenwer.github.io/tags/third/</loc>
+    <lastmod>2020-09-15T11:30:03+00:00</lastmod>
+  </url><url>
+    <loc>http://shirzartenwer.github.io/categories/</loc>
   </url>
 </urlset>

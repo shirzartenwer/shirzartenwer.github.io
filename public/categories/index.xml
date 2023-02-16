@@ -4,6 +4,11 @@
     <title>Categories on Personal Blog</title>
     <link>http://shirzartenwer.github.io/categories/</link>
     <description>Recent content in Categories on Personal Blog</description>
+    <image>
+      <title>Personal Blog</title>
+      <url>http://shirzartenwer.github.io/Linkedin_profile_pic.jpg</url>
+      <link>http://shirzartenwer.github.io/Linkedin_profile_pic.jpg</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="http://shirzartenwer.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
