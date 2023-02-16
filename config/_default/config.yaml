@@ -2,23 +2,21 @@ baseURL: 'http://shirzartenwer.github.io/'
 languageCode: en-us
 title: Personal Blog
 paginate: 5
-theme: github.com/adityatelange/hugo-PaperMod
+
 
 module:
   imports:
-    - path: github.com/adityatelange/hugo-PaperMod
+  - path: github.com/adityatelange/hugo-PaperMod
     # - path: github.com/xianmin/hugo-theme-jane
 
 
-sectionPagesMenu: main
-
-
-
-
+enableInlineShortcodes: true
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
+enableEmoji: true
+pygmentsUseClasses: true
 
 googleAnalytics: UA-123-45
 
@@ -54,6 +52,23 @@ params:
   showtoc: false
   tocopen: false
 
+  # home-info mode
+  homeInfoParams:
+      Title: "Hi there wave"
+      Content: >
+            Welcome to demo of hugo's theme PaperMod.
+            - **PaperMod** is a simple but fast and responsive theme with useful feature-set that enhances UX.
+            - Do give a 🌟 on Github !
+            - PaperMod is based on theme [Paper](https://github.com/nanxiaobei/hugo-paper).
+
+  socialIcons:
+    - name: twitter
+      url: "/assets/twitter.png"
+    - name: stackoverflow
+      url: "https://stackoverflow.com"
+    - name: github
+      url: "https://github.com/"
+
   assets:
     # disableHLJS: true # to disable highlight.js
     # disableFingerprinting: true
@@ -64,13 +79,13 @@ params:
     safari_pinned_tab: "<link / abs url>"
 
   label:
-    text: "Shizzy's sofa"
+    text: "Asiye"
     icon: /apple-touch-icon.png
     iconHeight: 35
 
   # profile-mode
   profileMode:
-    enabled: false # needs to be explicitly set
+    enabled: true # needs to be explicitly set
     title: ExampleSite
     subtitle: "This is subtitle"
     imageUrl: "<img location>"
@@ -83,18 +98,7 @@ params:
       - name: Tags
         url: tags
 
-  # home-info mode
-  homeInfoParams:
-      Title: Hi there wave
-      Content: Can be Info, links, about...
 
-  socialIcons:
-    - name: twitter
-      url: "https://twitter.com/"
-    - name: stackoverflow
-      url: "https://stackoverflow.com"
-    - name: github
-      url: "https://github.com/"
 
   analytics:
     google:
@@ -137,7 +141,6 @@ menu:
       weight: 20
 
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
-pygmentsUseClasses: true
 markup:
   highlight:
     noClasses: false
