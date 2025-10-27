@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khan Academy - Complete Onboarding Journey</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 50%, #fce7f3 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #dbeafe;
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
+            transition: width 0.5s;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 30px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(to right, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .map-container {
+            position: relative;
+            width: 700px;
+            height: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .center-island {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+        }
+
+        .center-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            border: 4px solid white;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .character {
+            font-size: 90px;
+            text-align: center;
+        }
+
+        .island {
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .island:hover { transform: translate(-50%, -50%) scale(1.1); }
+
+        .island-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            border: 4px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            position: relative;
+        }
+
+        .island-circle.current {
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.3), 0 10px 30px rgba(0,0,0,0.25);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .island-label {
+            margin-top: 10px;
+            background: white;
+            padding: 8px 18px;
+            border-radius: 15px;
+            border: 2px solid #bfdbfe;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .optional-badge {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #fcd34d, #f59e0b);
+            border-radius: 50%;
+            border: 3px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .form-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+            border: 4px solid #bfdbfe;
+        }
+
+        .form-header {
+            padding: 50px;
+            text-align: center;
+            color: white;
+        }
+
+        .form-header .emoji { font-size: 80px; margin-bottom: 20px; }
+        .form-header h2 { font-size: 36px; margin-bottom: 10px; }
+
+        .form-body { padding: 40px; }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .required { color: #ef4444; }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .multi-choice-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .choice-btn {
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .choice-btn:hover {
+            border-color: #93c5fd;
+        }
+
+        .choice-btn.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            color: #1e40af;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:disabled {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid #d1d5db;
+            color: #6b7280;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn-home {
+            background: white;
+            border: 2px solid #d1d5db;
+            color: #6b7280;
+        }
+
+        .nav-btn-home:hover {
+            border-color: #9ca3af;
+            background: #f9fafb;
+        }
+
+        .nav-btn-skip {
+            background: linear-gradient(to right, #22c55e, #16a34a);
+            color: white;
+            border: none;
+        }
+
+        .nav-btn-skip:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 767px) {
+            /* Mobile phones */
+            body {
+                padding: 10px;
+            }
+
+            .top-nav {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .container {
+                padding-top: 80px;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .map-container {
+                width: 100%;
+                height: auto;
+                min-height: 500px;
+                margin-bottom: 30px;
+            }
+
+            .center-island {
+                width: 120px;
+                height: 120px;
+            }
+
+            .character {
+                font-size: 60px;
+            }
+
+            .island-circle {
+                width: 80px;
+                height: 80px;
+                font-size: 35px;
+            }
+
+            .island-label {
+                font-size: 11px;
+                padding: 6px 12px;
+            }
+
+            .form-card {
+                border-radius: 20px;
+                border-width: 2px;
+            }
+
+            .form-header {
+                padding: 30px 20px;
+            }
+
+            .form-header .emoji {
+                font-size: 60px;
+            }
+
+            .form-header h2 {
+                font-size: 28px;
+            }
+
+            .form-body {
+                padding: 20px;
+            }
+
+            .multi-choice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            /* Tablets */
+            .container {
+                padding-top: 40px;
+            }
+
+            .map-container {
+                width: 600px;
+                height: 600px;
+            }
+
+            .form-card {
+                max-width: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+    </div>
+
+    <!-- Top Navigation -->
+    <div class="top-nav">
+        <a href="./index.html" class="nav-btn nav-btn-home">🏠 Home</a>
+        <a href="./khan-courses-page.html" class="nav-btn nav-btn-skip">Skip to Courses →</a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🏝️ Your Learning Journey</h1>
+            <p style="color: #6b7280; font-size: 18px;">Navigate islands to personalize your experience</p>
+        </div>
+
+        <div class="map-container">
+            <div class="center-island">
+                <div class="center-circle">
+                    <div class="character" id="character">❓</div>
+                </div>
+            </div>
+            <div id="islandsContainer"></div>
+        </div>
+
+        <div class="form-card">
+            <div class="form-header" id="formHeader"></div>
+            <div class="form-body">
+                <div id="formFields"></div>
+                <div class="btn-container" id="buttonContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentIsland = 0;
+        let completedIslands = [];
+        let formData = {};
+        let multiChoices = {};
+
+        const islands = [
+            {
+                id: 0,
+                name: "Base Island",
+                title: "Welcome to Khan Academy!",
+                desc: "Let's get to know you",
+                mascot: "👋",
+                color: "linear-gradient(135deg, #60a5fa, #3b82f6)",
+                mandatory: true,
+                fields: [
+                    { key: 'name', label: 'Your Name', type: 'text', required: true, placeholder: 'What should we call you?' },
+                    { key: 'age', label: 'How old are you?', type: 'select', required: true, options: ['5-7 years', '8-10 years', '11-13 years', '14-17 years', '18-22 years', '23+ years'] },
+                    { key: 'country', label: 'Where are you from?', type: 'select', required: true, 
+                      options: ['United States', 'Canada', 'Mexico', 'United Kingdom', 'Germany', 'France', 'Spain', 'Italy', 'Australia', 'India', 'China', 'Japan', 'Brazil', 'Other'] },
+                    { key: 'gradeLevel', label: 'What grade/class are you in?', type: 'select', required: true,
+                      options: ['Kindergarten', '1st Grade', '2nd Grade', '3rd Grade', '4th Grade', '5th Grade', '6th Grade', '7th Grade', '8th Grade', '9th Grade', '10th Grade', '11th Grade', '12th Grade', 'College', 'Adult Learner'] }
+                ]
+            },
+            {
+                id: 1,
+                name: "Learning Style",
+                title: "How Do You Learn Best?",
+                desc: "Tell us about your learning preferences",
+                mascot: "📚",
+                color: "linear-gradient(135deg, #4ade80, #22c55e)",
+                mandatory: true,
+                fields: [
+                    { key: 'learningPreference', label: 'Which learning methods do you prefer? (Select all that apply)', type: 'multi-choice',
+                      options: ['📹 Watching videos', '📝 Taking quizzes', '📖 Reading articles', '🎮 Interactive exercises'] },
+                    { key: 'favoriteSubject', label: 'What\'s your favorite subject?', type: 'select', required: true,
+                      options: ['Math', 'Science', 'English/Language', 'History', 'Art', 'Music', 'Physical Education', 'Computer Science', 'Other'] },
+                    { key: 'difficultSubject', label: 'Which subject do you find most challenging?', type: 'select', required: true,
+                      options: ['Math', 'Science', 'English/Language', 'History', 'Art', 'Music', 'Computer Science', 'None - all are easy!'] },
+                    { key: 'studyEnvironment', label: 'Where do you prefer to study?', type: 'select', required: true,
+                      options: ['Quiet room alone', 'Library', 'Coffee shop/Public space', 'With friends/study group', 'Anywhere with music', 'In bed'] }
+                ]
+            },
+            {
+                id: 2,
+                name: "Learning Goals",
+                title: "What Are Your Goals?",
+                desc: "Let's set your learning targets",
+                mascot: "🎯",
+                color: "linear-gradient(135deg, #a78bfa, #8b5cf6)",
+                mandatory: true,
+                fields: [
+                    { key: 'kaGoal', label: 'What do you want to achieve on Khan Academy?', type: 'select', required: true,
+                      options: ['Get better grades', 'Prepare for exams', 'Learn something completely new', 'Get ahead in class', 'Fill knowledge gaps', 'Just explore for fun'] },
+                    { key: 'studyTime', label: 'How much time can you dedicate per week?', type: 'select', required: true,
+                      options: ['Less than 1 hour', '1-2 hours', '2-5 hours', '5-10 hours', '10+ hours'] },
+                    { key: 'whenUseKA', label: 'When will you use Khan Academy? (Select all)', type: 'multi-choice',
+                      options: ['🏠 After school at home', '🏫 During class', '🌙 Before bedtime', '📅 On weekends', '🚌 During commute'] },
+                    { key: 'motivation', label: 'What motivates you most?', type: 'select', required: true,
+                      options: ['Getting good grades', 'Learning new things', 'Being the best', 'Helping others', 'Achieving personal goals', 'Making family proud', 'Being creative'] }
+                ]
+            },
+            {
+                id: 3,
+                name: "Future Dreams",
+                title: "What's Your Dream?",
+                desc: "Optional: Tell us your aspirations",
+                mascot: "⭐",
+                color: "linear-gradient(135deg, #fbbf24, #f59e0b)",
+                mandatory: false,
+                fields: [
+                    { key: 'futureDream', label: 'What do you want to be in the future?', type: 'select',
+                      options: ['Doctor/Nurse', 'Engineer', 'Teacher', 'Scientist', 'Artist/Designer', 'Entrepreneur', 'Software Developer', 'Athlete', 'Musician', 'Writer', 'Lawyer', 'Still figuring it out!'] },
+                    { key: 'universityCountry', label: 'Where would you like to study for university?', type: 'select',
+                      options: ['In my home country', 'United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'France', 'Anywhere with good programs', 'Not planning university'] }
+                ]
+            },
+            {
+                id: 4,
+                name: "Your Character",
+                title: "Choose Your Avatar!",
+                desc: "Optional: Pick your learning companion",
+                mascot: "🦊",
+                color: "linear-gradient(135deg, #f472b6, #ec4899)",
+                mandatory: false,
+                fields: [
+                    { key: 'animal', label: 'Pick your avatar animal', type: 'select',
+                      options: ['🐱 Cat', '🐶 Dog', '🐼 Panda', '🦊 Fox', '🐨 Koala', '🦉 Owl', '🐰 Rabbit', '🐯 Tiger', '🦁 Lion', '🐻 Bear'] },
+                    { key: 'competitive', label: 'Do you like to compete with others?', type: 'select',
+                      options: ['Yes, I love competition!', 'Sometimes, in a friendly way', 'Not really, I prefer my own pace', 'No, I prefer collaboration'] }
+                ]
+            },
+            {
+                id: 5,
+                name: "Curiosity Lab",
+                title: "What Makes You Curious?",
+                desc: "Optional: Explore beyond school subjects",
+                mascot: "🔬",
+                color: "linear-gradient(135deg, #818cf8, #6366f1)",
+                mandatory: false,
+                fields: [
+                    { key: 'interests', label: 'What interests you outside of school? (Select all)', type: 'multi-choice',
+                      options: ['🎮 Gaming', '🎨 Art & Design', '🎵 Music', '⚽ Sports', '📚 Reading', '🎬 Movies/TV', '💻 Coding', '🧪 Science experiments'] },
+                    { key: 'learningStyle', label: 'How would you describe your learning style?', type: 'select',
+                      options: ['Visual - I learn by seeing', 'Auditory - I learn by hearing', 'Kinesthetic - I learn by doing', 'Reading/Writing - I learn by reading', 'Mix of everything'] }
+                ]
+            }
+        ];
+
+        function init() {
+            renderIslands();
+            renderForm();
+            updateCharacter();
+        }
+
+        function renderIslands() {
+            const container = document.getElementById('islandsContainer');
+            container.innerHTML = '';
+            
+            islands.forEach((island, idx) => {
+                const angle = (idx * 360 / islands.length) - 90;
+                const radius = 280;
+                const x = 350 + radius * Math.cos(angle * Math.PI / 180);
+                const y = 350 + radius * Math.sin(angle * Math.PI / 180);
+
+                const div = document.createElement('div');
+                div.className = 'island';
+                div.style.left = x + 'px';
+                div.style.top = y + 'px';
+                div.style.transform = 'translate(-50%, -50%)';
+                div.onclick = () => goToIsland(idx);
+
+                const completed = completedIslands.includes(idx);
+                const isCurrent = currentIsland === idx;
+
+                div.innerHTML = `
+                    <div class="island-circle ${isCurrent ? 'current' : ''}" style="background: ${island.color}">
+                        ${completed ? '✓' : island.mascot}
+                        ${!island.mandatory ? '<div class="optional-badge">?</div>' : ''}
+                    </div>
+                    <div class="island-label">${island.name}</div>
+                `;
+
+                container.appendChild(div);
+            });
+        }
+
+        function renderForm() {
+            const island = islands[currentIsland];
+            
+            const header = document.getElementById('formHeader');
+            header.style.background = island.color;
+            header.innerHTML = `
+                <div class="emoji">${island.mascot}</div>
+                <h2>${island.title}</h2>
+                <p style="font-size: 18px; opacity: 0.9;">${island.desc}</p>
+                ${!island.mandatory ? '<p style="margin-top: 15px; background: rgba(255,255,255,0.2); display: inline-block; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: bold;">⭐ Optional Island</p>' : ''}
+            `;
+
+            const fieldsContainer = document.getElementById('formFields');
+            fieldsContainer.innerHTML = '';
+            
+            island.fields.forEach(field => {
+                const div = document.createElement('div');
+                div.className = 'form-group';
+                
+                if (field.type === 'text') {
+                    div.innerHTML = `
+                        <label>${field.label}${field.required ? '<span class="required">*</span>' : ''}</label>
+                        <input type="text" id="${field.key}" placeholder="${field.placeholder || ''}" value="${formData[field.key] || ''}">
+                    `;
+                    fieldsContainer.appendChild(div);
+                    document.getElementById(field.key).addEventListener('input', (e) => {
+                        formData[field.key] = e.target.value;
+                        updateButtons();
+                        updateCharacter();
+                    });
+                } else if (field.type === 'select') {
+                    div.innerHTML = `
+                        <label>${field.label}${field.required ? '<span class="required">*</span>' : ''}</label>
+                        <select id="${field.key}">
+                            <option value="">Select...</option>
+                            ${field.options.map(opt => `<option value="${opt}" ${formData[field.key] === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                        </select>
+                    `;
+                    fieldsContainer.appendChild(div);
+                    document.getElementById(field.key).addEventListener('change', (e) => {
+                        formData[field.key] = e.target.value;
+                        updateButtons();
+                        updateCharacter();
+                    });
+                } else if (field.type === 'multi-choice') {
+                    if (!multiChoices[field.key]) multiChoices[field.key] = [];
+                    
+                    div.innerHTML = `
+                        <label>${field.label}</label>
+                        <div class="multi-choice-grid" id="multi-${field.key}">
+                            ${field.options.map(opt => `
+                                <div class="choice-btn ${multiChoices[field.key].includes(opt) ? 'selected' : ''}" 
+                                     onclick="toggleChoice('${field.key}', '${opt}')">${opt}</div>
+                            `).join('')}
+                        </div>
+                    `;
+                    fieldsContainer.appendChild(div);
+                }
+            });
+
+            updateButtons();
+        }
+
+        window.toggleChoice = function(fieldKey, option) {
+            if (!multiChoices[fieldKey]) multiChoices[fieldKey] = [];
+            const idx = multiChoices[fieldKey].indexOf(option);
+            if (idx > -1) {
+                multiChoices[fieldKey].splice(idx, 1);
+            } else {
+                multiChoices[fieldKey].push(option);
+            }
+            renderForm();
+        };
+
+        function checkComplete() {
+            const island = islands[currentIsland];
+            return island.fields.every(field => !field.required || formData[field.key]);
+        }
+
+        function updateButtons() {
+            const island = islands[currentIsland];
+            const container = document.getElementById('buttonContainer');
+            const isComplete = checkComplete();
+
+            container.innerHTML = '';
+            
+            if (!island.mandatory) {
+                const skipBtn = document.createElement('button');
+                skipBtn.type = 'button';
+                skipBtn.className = 'btn-secondary';
+                skipBtn.textContent = 'Skip (Optional)';
+                skipBtn.onclick = skip;
+                container.appendChild(skipBtn);
+            }
+
+            const continueBtn = document.createElement('button');
+            continueBtn.type = 'button';
+            continueBtn.className = 'btn-primary';
+            continueBtn.textContent = currentIsland === islands.length - 1 ? 'Complete Journey! 🎉' : 'Continue to Next Island →';
+            continueBtn.disabled = island.mandatory && !isComplete;
+            continueBtn.onclick = continueNext;
+            container.appendChild(continueBtn);
+        }
+
+        function continueNext() {
+            if (checkComplete() || !islands[currentIsland].mandatory) {
+                if (!completedIslands.includes(currentIsland)) {
+                    completedIslands.push(currentIsland);
+                }
+                if (currentIsland < islands.length - 1) {
+                    currentIsland++;
+                    renderIslands();
+                    renderForm();
+                    updateCharacter();
+                    updateProgress();
+                } else {
+                    showSummary();
+                }
+            }
+        }
+
+        function skip() {
+            if (currentIsland < islands.length - 1) {
+                currentIsland++;
+                renderIslands();
+                renderForm();
+                updateCharacter();
+                updateProgress();
+            } else {
+                showSummary();
+            }
+        }
+
+        function goToIsland(idx) {
+            currentIsland = idx;
+            renderIslands();
+            renderForm();
+            updateCharacter();
+        }
+
+        function updateCharacter() {
+            const char = document.getElementById('character');
+            const count = completedIslands.length;
+
+            if (count === 0) {
+                char.innerHTML = '❓';
+                char.style.opacity = '0.3';
+            } else if (count === 1) {
+                char.innerHTML = '🥚';
+                char.style.opacity = '1';
+            } else if (count === 2) {
+                char.innerHTML = formData.animal ? formData.animal.split(' ')[0] : '🐣';
+                char.style.opacity = '1';
+            } else if (count >= 3) {
+                const animal = formData.animal ? formData.animal.split(' ')[0] : '🐼';
+                char.innerHTML = animal;
+                char.style.opacity = '1';
+            }
+        }
+
+        function updateProgress() {
+            const bar = document.getElementById('progressBar');
+            const progress = (completedIslands.length / islands.length) * 100;
+            bar.style.width = progress + '%';
+        }
+
+        function showSummary() {
+            // Hide the map and form
+            document.querySelector('.map-container').style.display = 'none';
+            document.querySelector('.form-card').style.display = 'none';
+            document.querySelector('.header').style.display = 'none';
+            
+            // Create finishing screen
+            const finishScreen = document.createElement('div');
+            finishScreen.style.cssText = 'max-width: 900px; margin: 0 auto; animation: fadeIn 0.5s;';
+            
+            // Get avatar details
+            const animal = formData.animal ? formData.animal.split(' ')[0] : '🐼';
+            const animalName = formData.animal ? formData.animal.split(' ')[1] : 'Panda';
+            const gear = (formData.gradeLevel?.includes('College') || formData.gradeLevel?.includes('Adult')) ? '🎓' : '🎒';
+            const subjectEmoji = formData.favoriteSubject === 'Math' ? '📐' :
+                                formData.favoriteSubject === 'Science' ? '🔬' :
+                                formData.favoriteSubject === 'Computer Science' ? '💻' :
+                                formData.favoriteSubject === 'Art' ? '🎨' :
+                                formData.favoriteSubject === 'Music' ? '🎵' :
+                                formData.favoriteSubject === 'History' ? '📜' : '📚';
+            const countryFlag = formData.country === 'United States' ? '🇺🇸' :
+                               formData.country === 'Canada' ? '🇨🇦' :
+                               formData.country === 'United Kingdom' ? '🇬🇧' :
+                               formData.country === 'Australia' ? '🇦🇺' :
+                               formData.country === 'India' ? '🇮🇳' :
+                               formData.country === 'China' ? '🇨🇳' :
+                               formData.country === 'Japan' ? '🇯🇵' :
+                               formData.country === 'Germany' ? '🇩🇪' :
+                               formData.country === 'France' ? '🇫🇷' :
+                               formData.country === 'Spain' ? '🇪🇸' :
+                               formData.country === 'Brazil' ? '🇧🇷' :
+                               formData.country === 'Mexico' ? '🇲🇽' : '🌍';
+            
+            finishScreen.innerHTML = `
+                <style>
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(20px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    @keyframes sparkle {
+                        0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+                        50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+                    }
+                    @keyframes float {
+                        0%, 100% { transform: translateY(0px); }
+                        50% { transform: translateY(-10px); }
+                    }
+                    .sparkle { animation: sparkle 2s infinite; }
+                    .float { animation: float 3s ease-in-out infinite; }
+                </style>
+                
+                <div style="text-align: center; padding: 40px 20px;">
+                    <!-- Celebration Header -->
+                    <div style="margin-bottom: 40px;">
+                        <div style="font-size: 80px; margin-bottom: 20px;">🎉</div>
+                        <h1 style="font-size: 56px; font-weight: bold; background: linear-gradient(to right, #2563eb, #7c3aed, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px;">
+                            Welcome, ${formData.name}!
+                        </h1>
+                        <p style="font-size: 24px; color: #6b7280; font-weight: 500;">Your learning companion is ready!</p>
+                    </div>
+
+                    <!-- Avatar Display Card -->
+                    <div style="background: white; border-radius: 30px; padding: 60px 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.2); border: 4px solid #bfdbfe; margin-bottom: 40px; position: relative; overflow: hidden;">
+                        <!-- Background decorations -->
+                        <div style="position: absolute; top: 20px; left: 20px; font-size: 40px; opacity: 0.1;">✨</div>
+                        <div style="position: absolute; top: 20px; right: 20px; font-size: 40px; opacity: 0.1;">✨</div>
+                        <div style="position: absolute; bottom: 20px; left: 20px; font-size: 40px; opacity: 0.1;">⭐</div>
+                        <div style="position: absolute; bottom: 20px; right: 20px; font-size: 40px; opacity: 0.1;">⭐</div>
+
+                        <!-- Main Avatar -->
+                        <div style="position: relative; display: inline-block; margin-bottom: 30px;" class="float">
+                            <!-- Island platform -->
+                            <div style="width: 280px; height: 280px; border-radius: 50%; background: linear-gradient(135deg, #fef3c7, #fed7aa); box-shadow: 0 25px 50px rgba(0,0,0,0.25); border: 6px solid white; display: flex; align-items: center; justify-content: center; position: relative;">
+                                
+                                <!-- Character -->
+                                <div style="text-align: center; position: relative; z-index: 2;">
+                                    <!-- Sparkles around character -->
+                                    <div style="position: absolute; top: -30px; left: -30px; font-size: 35px;" class="sparkle">✨</div>
+                                    <div style="position: absolute; top: -30px; right: -30px; font-size: 35px; animation-delay: 0.5s;" class="sparkle">✨</div>
+                                    
+                                    <!-- Animal head with gear -->
+                                    <div style="font-size: 120px; position: relative; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));">
+                                        ${animal}
+                                        <div style="position: absolute; top: -20px; right: -20px; font-size: 50px; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2));">
+                                            ${gear}
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Body with outfit -->
+                                    <div style="width: 100px; height: 120px; margin: -20px auto 0; border-radius: 20px; background: linear-gradient(135deg, #6366f1, #4f46e5); border: 5px solid #312e81; box-shadow: 0 15px 35px rgba(0,0,0,0.3); position: relative;">
+                                        <!-- Subject badge -->
+                                        <div style="position: absolute; right: -30px; top: 15px; font-size: 45px; background: white; border-radius: 50%; padding: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); border: 4px solid white;">
+                                            ${subjectEmoji}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Country flag badge -->
+                                <div style="position: absolute; bottom: -15px; right: -15px; width: 80px; height: 80px; background: white; border-radius: 50%; border: 6px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 45px;">
+                                    ${countryFlag}
+                                </div>
+
+                                <!-- Competition trophy if applicable -->
+                                ${formData.competitive === 'Yes, I love competition!' ? `
+                                    <div style="position: absolute; bottom: -15px; left: -15px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 50%; padding: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.3); border: 6px solid white;">
+                                        <div style="font-size: 40px;">🏆</div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+
+                        <!-- Avatar Name -->
+                        <h2 style="font-size: 42px; font-weight: bold; color: #1e293b; margin-bottom: 10px;">
+                            ${formData.name}'s ${animalName}
+                        </h2>
+                        <p style="font-size: 20px; color: #64748b; margin-bottom: 40px;">Your personalized learning companion</p>
+
+                        <!-- Profile Stats Grid -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: left; max-width: 700px; margin: 0 auto;">
+                            <!-- Grade Level -->
+                            <div style="background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 20px; border-radius: 15px; border: 2px solid #93c5fd;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">🎓</div>
+                                <div style="font-size: 13px; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 5px;">Grade Level</div>
+                                <div style="font-size: 16px; font-weight: bold; color: #1e40af;">${formData.gradeLevel || 'Not specified'}</div>
+                            </div>
+
+                            <!-- Favorite Subject -->
+                            <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 20px; border-radius: 15px; border: 2px solid #fcd34d;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">${subjectEmoji}</div>
+                                <div style="font-size: 13px; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 5px;">Favorite Subject</div>
+                                <div style="font-size: 16px; font-weight: bold; color: #92400e;">${formData.favoriteSubject || 'Not specified'}</div>
+                            </div>
+
+                            <!-- Main Goal -->
+                            <div style="background: linear-gradient(135deg, #f3e8ff, #e9d5ff); padding: 20px; border-radius: 15px; border: 2px solid #c084fc;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">🎯</div>
+                                <div style="font-size: 13px; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 5px;">Main Goal</div>
+                                <div style="font-size: 16px; font-weight: bold; color: #6b21a8;">${formData.kaGoal || 'Explore & Learn'}</div>
+                            </div>
+
+                            <!-- Study Time -->
+                            <div style="background: linear-gradient(135deg, #fce7f3, #fbcfe8); padding: 20px; border-radius: 15px; border: 2px solid #f9a8d4;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">⏰</div>
+                                <div style="font-size: 13px; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 5px;">Weekly Time</div>
+                                <div style="font-size: 16px; font-weight: bold; color: #9f1239;">${formData.studyTime || 'Not specified'}</div>
+                            </div>
+
+                            <!-- Learning Preferences -->
+                            ${multiChoices.learningPreference && multiChoices.learningPreference.length > 0 ? `
+                                <div style="background: linear-gradient(135deg, #dcfce7, #bbf7d0); padding: 20px; border-radius: 15px; border: 2px solid #86efac;">
+                                    <div style="font-size: 32px; margin-bottom: 8px;">📚</div>
+                                    <div style="font-size: 13px; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 5px;">Learning Style</div>
+                                    <div style="font-size: 14px; font-weight: bold; color: #166534;">${multiChoices.learningPreference[0].split(' ')[1] || 'Mixed'}</div>
+                                </div>
+                            ` : ''}
+
+                            <!-- Motivation -->
+                            ${formData.motivation ? `
+                                <div style="background: linear-gradient(135deg, #fee2e2, #fecaca); padding: 20px; border-radius: 15px; border: 2px solid #fca5a5;">
+                                    <div style="font-size: 32px; margin-bottom: 8px;">💪</div>
+                                    <div style="font-size: 13px; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 5px;">Motivation</div>
+                                    <div style="font-size: 16px; font-weight: bold; color: #991b1b;">${formData.motivation}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Personalized Message -->
+                    <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 40px; border-radius: 25px; box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4); margin-bottom: 30px;">
+                        <h3 style="font-size: 28px; font-weight: bold; margin-bottom: 15px;">🚀 Your Personalized Learning Path</h3>
+                        <p style="font-size: 18px; line-height: 1.6; opacity: 0.95; max-width: 600px; margin: 0 auto;">
+                            Based on your profile, we've customized your Khan Academy experience to help you <strong>${formData.kaGoal?.toLowerCase() || 'achieve your goals'}</strong>. 
+                            ${formData.favoriteSubject ? `We'll focus on <strong>${formData.favoriteSubject}</strong> ` : ''}
+                            and provide resources that match your learning style!
+                        </p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <button onclick="startLearning()" style="padding: 18px 40px; font-size: 20px; font-weight: bold; background: linear-gradient(to right, #3b82f6, #8b5cf6); color: white; border: none; border-radius: 15px; cursor: pointer; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                            Start Learning! 🎓
+                        </button>
+                        <button onclick="location.reload()" style="padding: 18px 40px; font-size: 20px; font-weight: bold; background: white; color: #6b7280; border: 3px solid #d1d5db; border-radius: 15px; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='#9ca3af'" onmouseout="this.style.borderColor='#d1d5db'">
+                            Start Over 🔄
+                        </button>
+                    </div>
+
+                    <!-- Fun Facts Section -->
+                    ${formData.futureDream || formData.interests ? `
+                        <div style="margin-top: 50px; padding: 30px; background: white; border-radius: 20px; border: 3px dashed #cbd5e1; max-width: 600px; margin-left: auto; margin-right: auto;">
+                            <h4 style="font-size: 22px; font-weight: bold; color: #334155; margin-bottom: 20px;">💫 Fun Facts About You</h4>
+                            <div style="text-align: left; color: #475569; font-size: 16px; line-height: 1.8;">
+                                ${formData.futureDream ? `<p>🌟 <strong>Dream Career:</strong> ${formData.futureDream}</p>` : ''}
+                                ${formData.universityCountry ? `<p>🎓 <strong>University Goal:</strong> ${formData.universityCountry}</p>` : ''}
+                                ${formData.competitive ? `<p>🏆 <strong>Competition Style:</strong> ${formData.competitive}</p>` : ''}
+                                ${multiChoices.interests && multiChoices.interests.length > 0 ? `<p>🎨 <strong>Interests:</strong> ${multiChoices.interests.join(', ')}</p>` : ''}
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            document.querySelector('.container').appendChild(finishScreen);
+        }
+
+        function startLearning() {
+            // Save user data to localStorage
+            const userData = {
+                name: formData.name,
+                animal: formData.animal,
+                subject: formData.favoriteSubject,
+                grade: formData.gradeLevel,
+                goal: formData.kaGoal,
+                country: formData.country,
+                points: 1250,
+                onboardingComplete: true
+            };
+
+            try {
+                localStorage.setItem('khanUserData', JSON.stringify(userData));
+            } catch (e) {
+                console.error('Failed to save user data:', e);
+                alert('Unable to save your data. Please check your browser settings.');
+            }
+
+            // Redirect to courses page
+            window.location.href = './khan-courses-page.html';
+        }
+
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Shop - Khan Academy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 50%, #fce7f3 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .points-display {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            padding: 15px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+        }
+
+        .points-label {
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .points-value {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .earn-info {
+            background: #eff6ff;
+            border: 2px solid #93c5fd;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .earn-title {
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+
+        .earn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .earn-item {
+            color: #1e40af;
+            font-size: 14px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        .preview-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .preview-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+
+        .avatar-preview {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.5s;
+        }
+
+        .character-display {
+            position: relative;
+        }
+
+        .character-body {
+            font-size: 100px;
+            position: relative;
+        }
+
+        .character-head-gear {
+            position: absolute;
+            top: -20px;
+            right: -15px;
+            font-size: 40px;
+        }
+
+        .character-accessory {
+            position: absolute;
+            bottom: -10px;
+            right: -15px;
+            font-size: 35px;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .equipped-list {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .equipped-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .equipped-item {
+            color: #374151;
+            font-size: 13px;
+            padding: 5px 0;
+        }
+
+        .shop-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: white;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+            transform: scale(1.05);
+        }
+
+        .category-btn:not(.active) {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .category-btn:not(.active):hover {
+            background: #e5e7eb;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .item-card {
+            background: #f9fafb;
+            border: 3px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .item-card.equipped {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+
+        .item-emoji {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .item-price {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-weight: bold;
+            color: #f59e0b;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .item-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: white;
+        }
+
+        .btn-buy:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-buy:disabled {
+            background: #d1d5db;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .btn-equip {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-equip:hover {
+            background: #2563eb;
+        }
+
+        .btn-equipped {
+            background: #22c55e;
+            color: white;
+            cursor: default;
+        }
+
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 30px;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 767px) {
+            /* Mobile phones */
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .points-display {
+                padding: 12px 20px;
+            }
+
+            .points-value {
+                font-size: 24px;
+            }
+
+            .earn-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .preview-section {
+                position: relative;
+                top: 0;
+            }
+
+            .avatar-preview {
+                height: 200px;
+            }
+
+            .character-body {
+                font-size: 70px;
+            }
+
+            .items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .item-card {
+                padding: 15px;
+            }
+
+            .item-emoji {
+                font-size: 45px;
+            }
+
+            .back-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            /* Tablets */
+            .container {
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .main-content {
+                grid-template-columns: 250px 1fr;
+            }
+
+            .items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <button class="back-btn" onclick="window.location.href='./index.html'">
+        🏠 Back to Home
+    </button>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1>🛍️ Avatar Shop</h1>
+                    <p style="color: #6b7280; margin-top: 10px; font-size: 16px;">Customize your learning companion!</p>
+                </div>
+                <div class="points-display">
+                    <div class="points-label">Your Points</div>
+                    <div class="points-value" id="pointsDisplay">1250</div>
+                </div>
+            </div>
+
+            <div class="earn-info">
+                <div class="earn-title">💡 Earn More Points:</div>
+                <div class="earn-grid">
+                    <div class="earn-item">✅ Complete lessons: <strong>+50pts</strong></div>
+                    <div class="earn-item">🎯 Pass quizzes: <strong>+100pts</strong></div>
+                    <div class="earn-item">🔥 Daily streak: <strong>+30pts</strong></div>
+                    <div class="earn-item">⭐ Master skills: <strong>+200pts</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Avatar Preview -->
+            <div class="preview-section">
+                <div class="preview-title">✨ Your Avatar</div>
+                <div class="avatar-preview" id="avatarPreview">
+                    <div class="character-display">
+                        <div class="character-body" id="characterBody">🐼</div>
+                        <div class="character-head-gear" id="characterGear">🎒</div>
+                        <div class="character-accessory" id="characterAccessory" style="display: none;">🏆</div>
+                    </div>
+                </div>
+
+                <div class="equipped-list">
+                    <div class="equipped-title">Currently Equipped:</div>
+                    <div class="equipped-item" id="equippedOutfit">👕 Basic Outfit</div>
+                    <div class="equipped-item" id="equippedHead">🎒 Backpack</div>
+                    <div class="equipped-item" id="equippedAccessory">None</div>
+                    <div class="equipped-item" id="equippedBg">🏫 Classroom</div>
+                </div>
+            </div>
+
+            <!-- Shop -->
+            <div class="shop-section">
+                <!-- Categories -->
+                <div class="categories" id="categoryButtons">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- Items Grid -->
+                <div class="items-grid" id="itemsGrid">
+                    <!-- Items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const app = {
+            points: 1250,
+            owned: ['default_outfit', 'default_head', 'default_bg'],
+            equipped: {
+                outfit: 'default_outfit',
+                head: 'default_head',
+                accessory: null,
+                bg: 'default_bg'
+            },
+            currentCategory: 'outfits',
+            animal: '🐼',
+
+            categories: [
+                { id: 'outfits', name: 'Outfits', icon: '👕' },
+                { id: 'heads', name: 'Head Gear', icon: '🎓' },
+                { id: 'accessories', name: 'Accessories', icon: '✨' },
+                { id: 'backgrounds', name: 'Backgrounds', icon: '🖼️' }
+            ],
+
+            items: {
+                outfits: [
+                    { id: 'default_outfit', name: 'Basic Outfit', price: 0, emoji: '👕', color: 'blue' },
+                    { id: 'scientist', name: 'Lab Coat', price: 150, emoji: '🥼', color: 'white' },
+                    { id: 'sports', name: 'Jersey', price: 200, emoji: '⚽', color: 'red' },
+                    { id: 'ninja', name: 'Ninja Gi', price: 350, emoji: '🥋', color: 'black' },
+                    { id: 'wizard', name: 'Wizard Robe', price: 450, emoji: '🧙', color: 'purple' },
+                    { id: 'space', name: 'Space Suit', price: 800, emoji: '🚀', color: 'gray' }
+                ],
+                heads: [
+                    { id: 'default_head', name: 'Backpack', price: 0, emoji: '🎒' },
+                    { id: 'cap', name: 'Baseball Cap', price: 100, emoji: '🧢' },
+                    { id: 'grad', name: 'Grad Cap', price: 150, emoji: '🎓' },
+                    { id: 'crown', name: 'Crown', price: 600, emoji: '👑' }
+                ],
+                accessories: [
+                    { id: 'sunglasses', name: 'Sunglasses', price: 120, emoji: '😎' },
+                    { id: 'trophy', name: 'Trophy', price: 250, emoji: '🏆' },
+                    { id: 'medal', name: 'Medal', price: 300, emoji: '🏅' },
+                    { id: 'star', name: 'Star', price: 350, emoji: '⭐' }
+                ],
+                backgrounds: [
+                    { id: 'default_bg', name: 'Classroom', price: 0, emoji: '🏫', color: 'linear-gradient(135deg, #dbeafe, #bfdbfe)' },
+                    { id: 'library', name: 'Library', price: 200, emoji: '📚', color: 'linear-gradient(135deg, #fef3c7, #fde68a)' },
+                    { id: 'space', name: 'Space', price: 500, emoji: '🌌', color: 'linear-gradient(135deg, #312e81, #1e1b4b)' },
+                    { id: 'castle', name: 'Castle', price: 700, emoji: '🏰', color: 'linear-gradient(135deg, #f3e8ff, #e9d5ff)' }
+                ]
+            },
+
+            init() {
+                this.loadData();
+                this.renderCategories();
+                this.renderItems();
+                this.updatePreview();
+            },
+
+            loadData() {
+                const saved = localStorage.getItem('khanUserData');
+                if (saved) {
+                    const userData = JSON.parse(saved);
+                    if (userData.points) this.points = userData.points;
+                    if (userData.animal) {
+                        this.animal = userData.animal.split(' ')[0];
+                    }
+                    // Load shop data from unified user data
+                    if (userData.shopOwned) this.owned = userData.shopOwned;
+                    if (userData.shopEquipped) this.equipped = userData.shopEquipped;
+                }
+
+                // Fallback to old shop data structure for compatibility
+                const shopData = localStorage.getItem('khanShopData');
+                if (shopData && !saved?.shopOwned) {
+                    const data = JSON.parse(shopData);
+                    if (data.owned) this.owned = data.owned;
+                    if (data.equipped) this.equipped = data.equipped;
+                }
+
+                document.getElementById('pointsDisplay').textContent = this.points.toLocaleString();
+            },
+
+            saveData() {
+                const userData = JSON.parse(localStorage.getItem('khanUserData') || '{}');
+                userData.points = this.points;
+                userData.shopOwned = this.owned;
+                userData.shopEquipped = this.equipped;
+                localStorage.setItem('khanUserData', JSON.stringify(userData));
+
+                // Keep backup in shopData for compatibility
+                localStorage.setItem('khanShopData', JSON.stringify({
+                    owned: this.owned,
+                    equipped: this.equipped
+                }));
+            },
+
+            renderCategories() {
+                const container = document.getElementById('categoryButtons');
+                container.innerHTML = this.categories.map(cat => `
+                    <button class="category-btn ${cat.id === this.currentCategory ? 'active' : ''}" 
+                            onclick="app.setCategory('${cat.id}')">
+                        <span>${cat.icon}</span> ${cat.name}
+                    </button>
+                `).join('');
+            },
+
+            setCategory(category) {
+                this.currentCategory = category;
+                this.renderCategories();
+                this.renderItems();
+            },
+
+            renderItems() {
+                const grid = document.getElementById('itemsGrid');
+                const items = this.items[this.currentCategory];
+                
+                grid.innerHTML = items.map(item => {
+                    const isOwned = this.owned.includes(item.id);
+                    const isEquipped = Object.values(this.equipped).includes(item.id);
+                    const canAfford = this.points >= item.price;
+
+                    return `
+                        <div class="item-card ${isEquipped ? 'equipped' : ''}">
+                            <div class="item-emoji">${item.emoji}</div>
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">
+                                <span>⭐</span>
+                                <span>${item.price === 0 ? 'Free' : item.price}</span>
+                            </div>
+                            ${isOwned ? (
+                                isEquipped ? 
+                                '<button class="item-btn btn-equipped">✓ Equipped</button>' :
+                                `<button class="item-btn btn-equip" onclick="app.equip('${item.id}', '${this.currentCategory}')">Equip</button>`
+                            ) : (
+                                `<button class="item-btn btn-buy" onclick="app.buy('${item.id}')" ${!canAfford ? 'disabled' : ''}>${canAfford ? '🛍️ Buy' : '🔒 Locked'}</button>`
+                            )}
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            buy(itemId) {
+                const allItems = [...this.items.outfits, ...this.items.heads, ...this.items.accessories, ...this.items.backgrounds];
+                const item = allItems.find(i => i.id === itemId);
+                
+                if (!item || this.owned.includes(itemId)) return;
+                if (this.points < item.price) return;
+
+                this.points -= item.price;
+                this.owned.push(itemId);
+                
+                document.getElementById('pointsDisplay').textContent = this.points.toLocaleString();
+                this.saveData();
+                this.renderItems();
+                
+                alert(`✨ Purchased ${item.name}!`);
+            },
+
+            equip(itemId, category) {
+                if (!this.owned.includes(itemId)) return;
+
+                const key = category === 'outfits' ? 'outfit' : 
+                           category === 'heads' ? 'head' : 
+                           category === 'accessories' ? 'accessory' : 'bg';
+                
+                this.equipped[key] = itemId;
+                this.saveData();
+                this.renderItems();
+                this.updatePreview();
+            },
+
+            updatePreview() {
+                // Update character
+                document.getElementById('characterBody').textContent = this.animal;
+                
+                // Update head gear
+                const headItem = [...this.items.heads].find(i => i.id === this.equipped.head);
+                if (headItem) {
+                    document.getElementById('characterGear').textContent = headItem.emoji;
+                }
+
+                // Update accessory
+                const accItem = [...this.items.accessories].find(i => i.id === this.equipped.accessory);
+                const accEl = document.getElementById('characterAccessory');
+                if (accItem) {
+                    accEl.textContent = accItem.emoji;
+                    accEl.style.display = 'block';
+                } else {
+                    accEl.style.display = 'none';
+                }
+
+                // Update background
+                const bgItem = this.items.backgrounds.find(i => i.id === this.equipped.bg);
+                if (bgItem) {
+                    document.getElementById('avatarPreview').style.background = bgItem.color;
+                }
+
+                // Update equipped list
+                const outfitItem = this.items.outfits.find(i => i.id === this.equipped.outfit);
+                document.getElementById('equippedOutfit').textContent = `${outfitItem?.emoji || '👕'} ${outfitItem?.name || 'None'}`;
+                
+                document.getElementById('equippedHead').textContent = `${headItem?.emoji || '🎒'} ${headItem?.name || 'None'}`;
+                
+                document.getElementById('equippedAccessory').textContent = accItem ? `${accItem.emoji} ${accItem.name}` : 'None';
+                
+                document.getElementById('equippedBg').textContent = `${bgItem?.emoji || '🏫'} ${bgItem?.name || 'Classroom'}`;
+            }
+        };
+
+        // Initialize
+        app.init();
+    </script>
+</body>
+</html>

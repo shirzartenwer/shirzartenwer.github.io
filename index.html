@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khan Academy - Learning Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 100px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #6b7280;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .status-box {
+            background: #f0f4ff;
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-label {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .status-value {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 18px 30px;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f4ff;
+        }
+
+        .btn-danger {
+            background: white;
+            color: #ef4444;
+            border: 2px solid #ef4444;
+            font-size: 14px;
+            padding: 12px 20px;
+        }
+
+        .avatar-preview {
+            display: inline-block;
+            font-size: 80px;
+            margin: 20px 0;
+        }
+
+        .checkmark {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 767px) {
+            /* Mobile phones */
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .logo {
+                font-size: 70px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 16px 24px;
+                font-size: 16px;
+            }
+
+            .status-box {
+                padding: 15px;
+            }
+
+            .status-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            /* Tablets */
+            .container {
+                max-width: 600px;
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo" id="logoEmoji">🎓</div>
+        <h1>Khan Academy</h1>
+        <p class="subtitle" id="welcomeText">Welcome! Let's start your learning journey.</p>
+
+        <!-- Status Box -->
+        <div class="status-box" id="statusBox">
+            <div class="status-item">
+                <span class="status-label">Onboarding Status:</span>
+                <span class="status-value" id="onboardingStatus">Not Started</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Your Name:</span>
+                <span class="status-value" id="userName">Not set</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Avatar:</span>
+                <span class="status-value" id="userAvatar">Not selected</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Total Points:</span>
+                <span class="status-value" id="userPoints">0</span>
+            </div>
+        </div>
+
+        <!-- Avatar Preview (if exists) -->
+        <div id="avatarPreview" style="display: none;">
+            <div class="avatar-preview" id="avatarDisplay">🐼</div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="btn-group">
+            <!-- Start/Continue Onboarding -->
+            <button onclick="goToOnboarding()" class="btn btn-primary" id="onboardingBtn">
+                🏝️ Start Onboarding Journey
+            </button>
+
+            <!-- Go to Courses (enabled after onboarding) -->
+            <button onclick="goToCourses()" class="btn btn-secondary" id="coursesBtn">
+                📚 Go to My Courses
+            </button>
+
+            <!-- Go to Shop -->
+            <button onclick="goToShop()" class="btn btn-secondary">
+                🛍️ Visit Avatar Shop
+            </button>
+
+            <!-- Reset -->
+            <button onclick="resetData()" class="btn btn-danger">
+                🔄 Reset Everything
+            </button>
+        </div>
+
+        <!-- Direct Links as Backup -->
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e5e7eb;">
+            <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">
+                <strong>Direct Links (if buttons don't work):</strong>
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+                <a href="./comprehensive-onboarding.html" style="color: #667eea; text-decoration: none; font-weight: 600;">
+                    → Onboarding Journey
+                </a>
+                <a href="./khan-courses-page.html" style="color: #667eea; text-decoration: none; font-weight: 600;">
+                    → My Courses
+                </a>
+                <a href="./avatar-shop.html" style="color: #667eea; text-decoration: none; font-weight: 600;">
+                    → Avatar Shop
+                </a>
+            </div>
+        </div>
+
+        <p style="margin-top: 30px; color: #9ca3af; font-size: 14px;">
+            💡 Tip: Complete the onboarding to unlock all features!
+        </p>
+    </div>
+
+    <script>
+        // Load user data
+        function loadUserData() {
+            try {
+                const saved = localStorage.getItem('khanUserData');
+                if (!saved) return null;
+                const userData = JSON.parse(saved);
+                
+                // Update status
+                document.getElementById('onboardingStatus').innerHTML = '<span class="checkmark">✓ Completed</span>';
+                document.getElementById('userName').textContent = userData.name || 'Not set';
+                
+                const animalName = userData.animal ? userData.animal.split(' ')[1] || 'Not selected' : 'Not selected';
+                document.getElementById('userAvatar').textContent = animalName;
+                document.getElementById('userPoints').textContent = (userData.points || 1250).toLocaleString();
+
+                // Show avatar preview
+                if (userData.animal) {
+                    const animal = userData.animal.split(' ')[0];
+                    document.getElementById('avatarDisplay').textContent = animal;
+                    document.getElementById('avatarPreview').style.display = 'block';
+                    document.getElementById('logoEmoji').textContent = animal;
+                }
+
+                // Update welcome text
+                document.getElementById('welcomeText').textContent = `Welcome back, ${userData.name || 'Learner'}!`;
+                
+                // Update button text
+                document.getElementById('onboardingBtn').innerHTML = '✏️ Edit Profile / Redo Onboarding';
+                document.getElementById('coursesBtn').style.background = 'linear-gradient(to right, #22c55e, #16a34a)';
+                document.getElementById('coursesBtn').style.border = 'none';
+
+                return userData;
+            } catch (e) {
+                console.error('Failed to load user data:', e);
+                return null;
+            }
+        }
+
+        function goToOnboarding() {
+            window.location.href = './comprehensive-onboarding.html';
+        }
+
+        function goToCourses() {
+            const userData = loadUserData();
+            if (!userData || !userData.onboardingComplete) {
+                alert('Please complete onboarding first! 🏝️');
+                return;
+            }
+            window.location.href = './khan-courses-page.html';
+        }
+
+        function goToShop() {
+            window.location.href = './avatar-shop.html';
+        }
+
+        function resetData() {
+            if (confirm('Are you sure you want to reset all data? This will delete your profile and progress.')) {
+                try {
+                    localStorage.clear();
+                    location.reload();
+                } catch (e) {
+                    console.error('Failed to reset data:', e);
+                    alert('Unable to reset data. Please check your browser settings.');
+                }
+            }
+        }
+
+        // Initialize
+        loadUserData();
+    </script>
+</body>
+</html>
