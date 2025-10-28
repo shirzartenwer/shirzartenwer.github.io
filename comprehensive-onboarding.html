@@ -314,98 +314,147 @@
         @media (max-width: 767px) {
             /* Mobile phones - Stack vertically */
             body {
-                padding: 10px;
+                padding: 5px;
+                overflow-x: hidden;
             }
 
             .top-nav {
-                top: 10px;
-                left: 10px;
-                right: 10px;
+                position: relative;
+                top: 0;
+                left: 0;
+                right: 0;
+                padding: 10px;
                 flex-wrap: wrap;
                 gap: 10px;
+                background: white;
+                border-bottom: 1px solid #e5e7eb;
             }
 
             .nav-btn {
-                padding: 10px 16px;
-                font-size: 13px;
+                padding: 8px 14px;
+                font-size: 12px;
             }
 
             .container {
-                padding-top: 80px;
-                padding-left: 10px;
-                padding-right: 10px;
+                padding-top: 20px;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            .header {
+                margin-bottom: 20px;
             }
 
             .header h1 {
-                font-size: 32px;
+                font-size: 28px;
+            }
+
+            .header p {
+                font-size: 14px !important;
             }
 
             .content-wrapper {
                 flex-direction: column;
-                gap: 20px;
+                gap: 30px;
+                align-items: center;
             }
 
             .map-container {
                 width: 100%;
-                max-width: 400px;
-                height: 400px;
-                margin: 0 auto;
+                max-width: 340px;
+                height: 340px;
+                margin: 0 auto 30px;
+                position: relative;
+                flex-shrink: 0;
             }
 
             .center-island {
-                width: 100px;
-                height: 100px;
+                width: 80px;
+                height: 80px;
             }
 
             .character {
-                font-size: 50px;
+                font-size: 40px;
+            }
+
+            .island {
+                transform-origin: center;
             }
 
             .island-circle {
-                width: 70px;
-                height: 70px;
-                font-size: 30px;
-            }
-
-            .island-label {
-                font-size: 10px;
-                padding: 5px 10px;
-            }
-
-            .optional-badge {
-                width: 22px;
-                height: 22px;
-                font-size: 12px;
-            }
-
-            .form-card {
-                border-radius: 20px;
-                border-width: 2px;
-                max-width: 100%;
-            }
-
-            .form-header {
-                padding: 30px 20px;
-            }
-
-            .form-header .emoji {
-                font-size: 60px;
-            }
-
-            .form-header h2 {
+                width: 60px;
+                height: 60px;
                 font-size: 24px;
             }
 
+            .island-label {
+                font-size: 9px;
+                padding: 4px 8px;
+                white-space: nowrap;
+            }
+
+            .optional-badge {
+                width: 18px;
+                height: 18px;
+                font-size: 10px;
+                top: -5px;
+                left: -5px;
+            }
+
+            .form-card {
+                border-radius: 15px;
+                border-width: 2px;
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+            }
+
+            .form-header {
+                padding: 25px 15px;
+            }
+
+            .form-header .emoji {
+                font-size: 50px;
+                margin-bottom: 15px;
+            }
+
+            .form-header h2 {
+                font-size: 22px;
+            }
+
+            .form-header p {
+                font-size: 14px !important;
+            }
+
             .form-body {
-                padding: 20px;
+                padding: 15px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
             }
 
             .multi-choice-grid {
                 grid-template-columns: 1fr;
             }
 
+            .choice-btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            input, select, textarea {
+                padding: 12px;
+                font-size: 15px;
+            }
+
             button {
-                font-size: 16px;
+                font-size: 15px;
+                padding: 14px;
+            }
+
+            .btn-container {
+                margin-top: 20px;
             }
         }
 
@@ -611,12 +660,21 @@
         function renderIslands() {
             const container = document.getElementById('islandsContainer');
             container.innerHTML = '';
-            
+
+            // Get actual map container size for responsive positioning
+            const mapContainer = document.querySelector('.map-container');
+            const containerWidth = mapContainer.offsetWidth;
+            const containerHeight = mapContainer.offsetHeight;
+
+            // Calculate center and radius based on container size
+            const centerX = containerWidth / 2;
+            const centerY = containerHeight / 2;
+            const radius = Math.min(centerX, centerY) * 0.8; // 80% of half the container size
+
             islands.forEach((island, idx) => {
                 const angle = (idx * 360 / islands.length) - 90;
-                const radius = 280;
-                const x = 350 + radius * Math.cos(angle * Math.PI / 180);
-                const y = 350 + radius * Math.sin(angle * Math.PI / 180);
+                const x = centerX + radius * Math.cos(angle * Math.PI / 180);
+                const y = centerY + radius * Math.sin(angle * Math.PI / 180);
 
                 const div = document.createElement('div');
                 div.className = 'island';
@@ -1034,6 +1092,15 @@
             // Redirect to courses page
             window.location.href = './khan-courses-page.html';
         }
+
+        // Handle window resize to reposition islands
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                renderIslands();
+            }, 250);
+        });
 
         init();
     </script>
