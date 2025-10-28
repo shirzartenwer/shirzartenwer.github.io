@@ -51,11 +51,18 @@
             margin-bottom: 10px;
         }
 
+        .content-wrapper {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
         .map-container {
             position: relative;
             width: 700px;
             height: 700px;
-            margin: 0 auto 50px;
+            flex-shrink: 0;
         }
 
         .center-island {
@@ -146,7 +153,7 @@
 
         .form-card {
             max-width: 700px;
-            margin: 0 auto;
+            width: 100%;
             background: white;
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
@@ -305,7 +312,7 @@
 
         /* Responsive Design */
         @media (max-width: 767px) {
-            /* Mobile phones */
+            /* Mobile phones - Stack vertically */
             body {
                 padding: 10px;
             }
@@ -325,42 +332,56 @@
 
             .container {
                 padding-top: 80px;
+                padding-left: 10px;
+                padding-right: 10px;
             }
 
             .header h1 {
                 font-size: 32px;
             }
 
+            .content-wrapper {
+                flex-direction: column;
+                gap: 20px;
+            }
+
             .map-container {
                 width: 100%;
-                height: auto;
-                min-height: 500px;
-                margin-bottom: 30px;
+                max-width: 400px;
+                height: 400px;
+                margin: 0 auto;
             }
 
             .center-island {
-                width: 120px;
-                height: 120px;
+                width: 100px;
+                height: 100px;
             }
 
             .character {
-                font-size: 60px;
+                font-size: 50px;
             }
 
             .island-circle {
-                width: 80px;
-                height: 80px;
-                font-size: 35px;
+                width: 70px;
+                height: 70px;
+                font-size: 30px;
             }
 
             .island-label {
-                font-size: 11px;
-                padding: 6px 12px;
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .optional-badge {
+                width: 22px;
+                height: 22px;
+                font-size: 12px;
             }
 
             .form-card {
                 border-radius: 20px;
                 border-width: 2px;
+                max-width: 100%;
             }
 
             .form-header {
@@ -372,7 +393,7 @@
             }
 
             .form-header h2 {
-                font-size: 28px;
+                font-size: 24px;
             }
 
             .form-body {
@@ -389,18 +410,48 @@
         }
 
         @media (min-width: 768px) and (max-width: 1024px) {
-            /* Tablets */
+            /* Tablets - Stack vertically */
             .container {
                 padding-top: 40px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .content-wrapper {
+                flex-direction: column;
+                align-items: center;
             }
 
             .map-container {
-                width: 600px;
-                height: 600px;
+                width: 500px;
+                height: 500px;
+                margin-bottom: 20px;
+            }
+
+            .center-island {
+                width: 140px;
+                height: 140px;
+            }
+
+            .character {
+                font-size: 70px;
+            }
+
+            .island-circle {
+                width: 90px;
+                height: 90px;
+                font-size: 40px;
             }
 
             .form-card {
                 max-width: 600px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            /* Desktop - Side by side */
+            .content-wrapper {
+                flex-direction: row;
             }
         }
     </style>
@@ -422,20 +473,22 @@
             <p style="color: #6b7280; font-size: 18px;">Navigate islands to personalize your experience</p>
         </div>
 
-        <div class="map-container">
-            <div class="center-island">
-                <div class="center-circle">
-                    <div class="character" id="character">❓</div>
+        <div class="content-wrapper">
+            <div class="map-container">
+                <div class="center-island">
+                    <div class="center-circle">
+                        <div class="character" id="character">❓</div>
+                    </div>
                 </div>
+                <div id="islandsContainer"></div>
             </div>
-            <div id="islandsContainer"></div>
-        </div>
 
-        <div class="form-card">
-            <div class="form-header" id="formHeader"></div>
-            <div class="form-body">
-                <div id="formFields"></div>
-                <div class="btn-container" id="buttonContainer"></div>
+            <div class="form-card">
+                <div class="form-header" id="formHeader"></div>
+                <div class="form-body">
+                    <div id="formFields"></div>
+                    <div class="btn-container" id="buttonContainer"></div>
+                </div>
             </div>
         </div>
     </div>

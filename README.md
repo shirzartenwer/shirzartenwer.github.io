@@ -20,7 +20,7 @@ This prototype reimagines the Khan Academy onboarding experience by:
 ## 🚀 Getting Started
 
 ### Option 1: Online (Recommended for Testing)
-Visit: [Your GitHub Pages URL will go here]
+Visit: **https://shirzartenwer.github.io/KA_onboard/**
 
 ### Option 2: Local Testing
 1. Download all HTML files to the same folder
