@@ -615,6 +615,62 @@
                 fields: [
                     { key: 'futureDream', label: 'What do you want to be in the future?', type: 'select',
                       options: ['Doctor/Nurse', 'Engineer', 'Teacher', 'Scientist', 'Artist/Designer', 'Entrepreneur', 'Software Developer', 'Athlete', 'Musician', 'Writer', 'Lawyer', 'Still figuring it out!'] },
+                    { key: 'personalHero', label: 'Who is someone you look up to or admire?', type: 'select',
+                      options: [
+                        '-- Scientists & Inventors --',
+                        'Albert Einstein - Physicist',
+                        'Marie Curie - Physicist & Chemist',
+                        'Stephen Hawking - Theoretical Physicist',
+                        'Neil deGrasse Tyson - Astrophysicist',
+                        'Jane Goodall - Primatologist',
+                        'Nikola Tesla - Inventor',
+                        '-- Tech Leaders & Innovators --',
+                        'Elon Musk - Tesla & SpaceX',
+                        'Bill Gates - Microsoft',
+                        'Steve Jobs - Apple',
+                        'Mark Zuckerberg - Facebook/Meta',
+                        'Sundar Pichai - Google',
+                        'Jack Ma - Alibaba',
+                        'Satya Nadella - Microsoft',
+                        '-- Activists & Leaders --',
+                        'Malala Yousafzai - Education Activist',
+                        'Nelson Mandela - Anti-Apartheid Leader',
+                        'Martin Luther King Jr. - Civil Rights Leader',
+                        'Mahatma Gandhi - Independence Leader',
+                        'Greta Thunberg - Climate Activist',
+                        'Rosa Parks - Civil Rights Activist',
+                        'Wangari Maathai - Environmental Activist',
+                        '-- Athletes --',
+                        'Serena Williams - Tennis',
+                        'Muhammad Ali - Boxing',
+                        'Usain Bolt - Sprinting',
+                        'Lionel Messi - Football/Soccer',
+                        'Simone Biles - Gymnastics',
+                        'Michael Jordan - Basketball',
+                        'Cristiano Ronaldo - Football/Soccer',
+                        '-- Artists & Creators --',
+                        'Leonardo da Vinci - Artist & Inventor',
+                        'Frida Kahlo - Artist',
+                        'Walt Disney - Animator & Entrepreneur',
+                        'Hayao Miyazaki - Animator',
+                        'Pablo Picasso - Artist',
+                        'Maya Angelou - Poet & Author',
+                        'J.K. Rowling - Author',
+                        '-- Business & Media --',
+                        'Oprah Winfrey - Media Mogul',
+                        'Richard Branson - Virgin Group',
+                        'Warren Buffett - Investor',
+                        'Sara Blakely - Spanx Founder',
+                        '-- Other Inspirational Figures --',
+                        'Ruth Bader Ginsburg - Supreme Court Justice',
+                        'Carl Sagan - Astronomer',
+                        'Bruce Lee - Martial Artist & Actor',
+                        'Amelia Earhart - Aviator',
+                        'My parents/family',
+                        'My teacher',
+                        'Someone else not listed'
+                      ]
+                    },
                     { key: 'universityCountry', label: 'Where would you like to study for university?', type: 'select',
                       options: ['In my home country', 'United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'France', 'Sweden', 'Switzerland', 'Netherlands', 'Italy', 'Ireland', 'Anywhere with good programs', 'Not planning university'] }
                 ]
@@ -1052,11 +1108,12 @@
                     </div>
 
                     <!-- Fun Facts Section -->
-                    ${formData.futureDream || formData.interests ? `
+                    ${formData.futureDream || formData.personalHero || formData.interests ? `
                         <div style="margin-top: 50px; padding: 30px; background: white; border-radius: 20px; border: 3px dashed #cbd5e1; max-width: 600px; margin-left: auto; margin-right: auto;">
                             <h4 style="font-size: 22px; font-weight: bold; color: #334155; margin-bottom: 20px;">💫 Fun Facts About You</h4>
                             <div style="text-align: left; color: #475569; font-size: 16px; line-height: 1.8;">
                                 ${formData.futureDream ? `<p>🌟 <strong>Dream Career:</strong> ${formData.futureDream}</p>` : ''}
+                                ${formData.personalHero ? `<p>⭐ <strong>Role Model:</strong> ${formData.personalHero}</p>` : ''}
                                 ${formData.universityCountry ? `<p>🎓 <strong>University Goal:</strong> ${formData.universityCountry}</p>` : ''}
                                 ${formData.competitive ? `<p>🏆 <strong>Competition Style:</strong> ${formData.competitive}</p>` : ''}
                                 ${multiChoices.interests && multiChoices.interests.length > 0 ? `<p>🎨 <strong>Interests:</strong> ${multiChoices.interests.join(', ')}</p>` : ''}
@@ -1078,6 +1135,8 @@
                 grade: formData.gradeLevel,
                 goal: formData.kaGoal,
                 country: formData.country,
+                personalHero: formData.personalHero,
+                futureDream: formData.futureDream,
                 points: 1250,
                 onboardingComplete: true
             };
