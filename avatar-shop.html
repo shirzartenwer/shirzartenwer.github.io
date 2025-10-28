@@ -121,29 +121,34 @@
 
         .character-display {
             position: relative;
+            display: inline-block;
         }
 
         .character-body {
             font-size: 100px;
             position: relative;
+            display: block;
         }
 
         .character-head-gear {
             position: absolute;
-            top: -20px;
-            right: -15px;
-            font-size: 40px;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 45px;
+            z-index: 10;
         }
 
         .character-accessory {
             position: absolute;
-            bottom: -10px;
-            right: -15px;
-            font-size: 35px;
+            bottom: 0px;
+            right: -25px;
+            font-size: 40px;
             background: white;
             border-radius: 50%;
-            padding: 5px;
+            padding: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 5;
         }
 
         .equipped-list {
@@ -369,6 +374,17 @@
 
             .character-body {
                 font-size: 70px;
+            }
+
+            .character-head-gear {
+                font-size: 32px;
+                top: -10px;
+            }
+
+            .character-accessory {
+                font-size: 28px;
+                right: -15px;
+                padding: 5px;
             }
 
             .items-grid {
